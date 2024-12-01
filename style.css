@@ -6,20 +6,28 @@ body {
     padding: 0;
   }
   
+  h1 {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
   #game-board {
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-wrap: nowrap;
     margin: 20px auto;
     padding: 10px;
     border: 1px solid #ddd;
     background-color: #fff;
-    max-width: 800px;
+    max-width: 900px;
   }
   
   .segment {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    margin-right: 10px; /* Space between segments */
   }
   
   .tile {
@@ -32,10 +40,10 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 60px; /* Fixed width */
-    height: 80px; /* Fixed height */
+    width: 60px;
+    height: 80px;
     box-sizing: border-box;
-    margin-right: 5px; /* Spacing between tiles */
+    margin-right: 5px;
   }
   
   .tile:hover {
@@ -46,7 +54,6 @@ body {
     width: 5px;
     height: 80px;
     background-color: #444;
-    margin: 0 5px; /* Space between the divider and segments */
   }
   
   #play-btn {
@@ -60,5 +67,13 @@ body {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
+    color: #444;
+  }
+  
+  #score-message {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
   }
   

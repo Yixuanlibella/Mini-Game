@@ -4,7 +4,6 @@ class Tile {
       this.points = points; // Tile points
       this.type = type; // Tile type (character, dot, bamboo)
       this.translation = translation; // English translation
-      this.image = name; // Placeholder for now
     }
   }
   
@@ -39,33 +38,62 @@ class Tile {
     new Tile("9条", 9, "bamboo", "9 bamboos")
   ];
   
-  // Helper function to get random tiles
-  function getRandomTiles(count) {
-    const selectedTiles = [];
-    for (let i = 0; i < count; i++) {
-      const randomTile = tiles[Math.floor(Math.random() * tiles.length)];
-      selectedTiles.push(randomTile);
-    }
-    return selectedTiles;
-  }
-  
-  // Initialize game state
   let playerTiles = [];
   let timeLeft = 60;
   let gameActive = false;
   
-  // Render game board
+  function getRandomTiles(count) {
+    const selectedTiles = [];
+    for (let i = 0; i < count; i++) {
+      selectedTiles.push(tiles[Math.floor(Math.random() * tiles.length)]);
+    }
+    return selectedTiles;
+  }
+  
+  function calculateScore(units) {
+    let totalScore = 0;
+    let keziCount = 0;
+    let shunziCount = 0;
+  
+    units.forEach((unit) => {
+      const points = unit.map((tile) => tile.points);
+      const types = unit.map((tile) => tile.type);
+  
+      const isKezi = unit.every(
+        (tile) =>
+          tile.name === unit[0].name &&
+          tile.type === unit[0].type &&
+          tile.points === unit[0].points
+      );
+  
+      const isShunzi =
+        types.every((type) => type === types[0]) &&
+        points.sort((a, b) => a - b).every((val, idx, arr) => idx === 0 || val === arr[idx - 1] + 1);
+  
+      let unitScore = points.reduce((sum, point) => sum + point, 0);
+      if (isKezi) {
+        unitScore *= 2;
+        keziCount++;
+      } else if (isShunzi) {
+        unitScore *= 2;
+        shunziCount++;
+      }
+  
+      totalScore += unitScore;
+    });
+  
+    return `Congratulations, you have formed ${shunziCount} Shunzi, ${keziCount} Kezi, your total score is: ${totalScore}`;
+  }
+  
   function renderBoard() {
     const gameBoard = document.getElementById("game-board");
-    gameBoard.innerHTML = ""; // Clear board
+    gameBoard.innerHTML = "";
   
-    // Divide tiles into four segments
     const segments = [];
     for (let i = 0; i < 4; i++) {
       segments.push(playerTiles.slice(i * 3, i * 3 + 3));
     }
   
-    // Render each segment
     segments.forEach((segment, segmentIndex) => {
       const segmentDiv = document.createElement("div");
       segmentDiv.classList.add("segment");
@@ -78,25 +106,26 @@ class Tile {
           tileDiv.addEventListener("click", () => {
             const globalTileIndex = segmentIndex * 3 + tileIndex;
             playerTiles[globalTileIndex] = tiles[Math.floor(Math.random() * tiles.length)];
-            renderBoard();
+            renderBoard(); // Rerender to reflect changes
           });
         }
         segmentDiv.appendChild(tileDiv);
       });
   
-      // Append the segment to the board
       gameBoard.appendChild(segmentDiv);
   
-      // Add a visible divider after each segment except the last one
       if (segmentIndex < 3) {
         const divider = document.createElement("div");
         divider.classList.add("divider");
         gameBoard.appendChild(divider);
       }
     });
+  
+    if (!gameActive) {
+      document.getElementById("score-message").textContent = calculateScore(segments);
+    }
   }
   
-  // Timer countdown
   function startTimer() {
     const timerElement = document.getElementById("timer");
     const interval = setInterval(() => {
@@ -109,23 +138,18 @@ class Tile {
       if (timeLeft <= 0) {
         clearInterval(interval);
         gameActive = false;
-        alert("Time's up!");
-        renderBoard(); // Remove click listeners
+        renderBoard(); // End game and display score
       }
     }, 1000);
   }
   
-  // Play button functionality
   document.getElementById("play-btn").addEventListener("click", () => {
-    if (!gameActive) {
-      playerTiles = getRandomTiles(12); // Assign new tiles
-      timeLeft = 60; // Reset timer
-      gameActive = true;
-      renderBoard();
-      startTimer();
-    }
+    playerTiles = getRandomTiles(12); // Generate 12 random tiles
+    timeLeft = 60; // Reset timer
+    gameActive = true;
+    renderBoard();
+    startTimer();
   });
   
-  // Initial render
   renderBoard();
   

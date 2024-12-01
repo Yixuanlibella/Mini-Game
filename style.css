@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #game-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    max-width: 800px;
+  }
+  
+  .segment {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .tile {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Fixed width */
+    height: 80px; /* Fixed height */
+    box-sizing: border-box;
+    margin-right: 5px; /* Spacing between tiles */
+  }
+  
+  .tile:hover {
+    background-color: #eaeaea;
+  }
+  
+  .divider {
+    width: 5px;
+    height: 80px;
+    background-color: #444;
+    margin: 0 5px; /* Space between the divider and segments */
+  }
+  
+  #play-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #timer {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  

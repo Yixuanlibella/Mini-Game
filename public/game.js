@@ -180,57 +180,63 @@ function getGroups(tiles) {
   return groups;
 }
 
-// Fetch leaderboard data
-async function fetchLeaderboard() {
-  try {
-    const response = await axios.get("http://localhost:3000/leaderboard");
-    const leaderboard = response.data.leaderboard;
-
-    const list = document.getElementById("leaderboard-list");
-    list.innerHTML = ""; // Clear the list
-
-    leaderboard.forEach((entry) => {
-      const li = document.createElement("li");
-      li.textContent = `${entry.playerName}: ${entry.score}`;
-      list.appendChild(li);
-    });
-  } catch (error) {
-    console.error("Error fetching leaderboard:", error);
-    alert("Failed to load leaderboard. Please try again.");
-  }
+function submitScore(score) {
+  fetch('/submit-score', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ score }), // sending score
+  })
+      .then(response => response.json())
+      .then(data => {
+          console.log('Score submitted successfully:', data);
+      })
+      .catch(error => {
+          console.error('Error submitting score:', error);
+      });
 }
 
-// Submit score to the server
-async function submitScore(playerName, score) {
-  try {
-    const response = await axios.post("http://localhost:3000/submit-score", {
-      playerName,
-      score,
-    });
+// Fetch leaderboard data
+function fetchLeaderboard() {
+  fetch('http://localhost:3000/get-scores')
+    .then(response => response.json())
+    .then(data => {
+      const leaderboardDiv = document.getElementById('leaderboard');
+      leaderboardDiv.innerHTML = '';
 
-    if (response.data.message) {
-      alert("Score submitted successfully!"); // Notify user
-      await fetchLeaderboard(); // Refresh the leaderboard
-    }
-  } catch (error) {
-    console.error("Error submitting score:", error);
-    alert("Failed to submit score. Please try again.");
-  }
+      const scoresList = document.createElement('ul');
+      data.scores.forEach((entry, index) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. Score: ${entry.score}, Time: ${entry.timeStamp}`;
+        scoresList.appendChild(listItem);
+      });
+
+      leaderboardDiv.appendChild(scoresList);
+    });
 }
 
 // Handle score submission
 document.getElementById("submit-score-btn").addEventListener("click", () => {
   const playerName = document.getElementById("player-name").value.trim();
-  const groups = getGroups(playerTiles); // Divide tiles into groups
-  const result = calculateScore(groups); // Calculate the final score
-  const score = result.totalScore;
+
 
   if (!playerName) {
     alert("Please enter your name!");
     return;
   }
+      // calculating score
+      const groups = [];
+      for (let i = 0; i < 5; i++) {
+        const groupSize = i < 4 ? 3 : 2; 
+        groups.push(playerTiles.slice(i * 3, i * 3 + groupSize));
+      }
 
-  submitScore(playerName, score); // Submit the score
+      // get score
+      const { totalScore } = calculateScore(groups);
+
+      // submit score
+      submitScore(totalScore); // Submit the score
   document.getElementById("player-name").value = ""; // Clear input
 });
 
@@ -273,7 +279,7 @@ function endGame() {
 document.getElementById("play-btn").addEventListener("click", () => {
   console.log("Start Game clicked"); // Debug log
   playerTiles = getRandomTiles(14); // Generate 14 random tiles
-  timeLeft = 180; // Reset timer to 180 seconds
+  timeLeft = 3; // Reset timer to 180 seconds
   gameActive = true; // Activate the game
 
   renderBoard(); // Render the game board

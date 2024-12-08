@@ -3,36 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mahjong Game</title>
+  <title>Mahjong Game with Leaderboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="instructions-modal" class="modal">
-    <div class="modal-content">
-      <h2>Game Instructions</h2>
-      <p><strong>General Rules:</strong></p>
-      <ul>
-        <li>The game consists of 14 tiles, divided into 5 groups: 4 groups of 3 tiles and 1 group of 2 tiles.</li>
-        <li>Form patterns like <strong>Shunzi</strong> (sequential tiles of the same type), <strong>Kezi</strong> (three identical tiles), and <strong>Duizi</strong> (two identical tiles).</li>
-        <li>Achieve <strong>Hu</strong> by forming Kezi or Shunzi in all 4 groups of 3 tiles and Duizi in the final group of 2 tiles.</li>
-      </ul>
-      <p><strong>Examples:</strong></p>
-      <ul>
-        <li><strong>Shunzi:</strong> 1条, 2条, 3条 (Sequential tiles of the same type)</li>
-        <li><strong>Kezi:</strong> 3万, 3万, 3万 (Three identical tiles)</li>
-        <li><strong>Duizi:</strong> 5筒, 5筒 (Two identical tiles)</li>
-        <li><strong>Hu:</strong> 4 valid groups of Shunzi/Kezi and 1 group of Duizi</li>
-      </ul>
-      <button id="start-game">Start Game</button>
-    </div>
+  <div id="instructions-section">
+    <h2>Game Instructions</h2>
+    <p><strong>General Rules:</strong></p>
+    <ul>
+      <li>The game consists of 14 tiles displayed in a single row.</li>
+      <li>The tiles are divided into 5 groups (4 groups of 3 tiles and 1 group of 2 tiles).</li>
+      <li>
+        Scoring Patterns:
+        <ul>
+          <li><strong>Kezi:</strong> 3 identical tiles (points x 2).</li>
+          <li><strong>Shunzi:</strong> 3 consecutive tiles of the same type (points x 2).</li>
+          <li><strong>Duizi:</strong> 2 identical tiles in the last group (points x 2).</li>
+          <li><strong>Hu:</strong> Achieved when all 4 groups are Kezi/Shunzi, and the last group is Duizi (total score doubled).</li>
+        </ul>
+      </li>
+      <li>You can click on any tile to replace it with a random tile from the pool.</li>
+      <li>The game ends when the timer reaches 0.</li>
+    </ul>
   </div>
-  <h1>Mahjong Game</h1>
-  <div id="game-board"></div>
-  <button id="play-btn" disabled>Play</button>
-  <div id="timer">Time Left: 60</div>
-  <div id="score-message"></div>
-  <button id="view-leaderboard">View Leaderboard</button>
-<div id="leaderboard"></div>
+  
+  <!-- Main Game Section -->
+  <div id="game-container">
+    <h1>Mahjong Game</h1>
+    <div id="controls">
+      <button id="play-btn">Start Game</button>
+      <button id="leaderboard-btn">Leaderboard</button>
+    </div>
+    <div id="game-board"></div>
+    <div id="timer">Time Left: 180</div>
+    <div id="score-message"></div>
+  </div>
+
+  <!-- Score Submission Form -->
+  <div id="submit-score-form">
+    <h2>Submit Your Score</h2>
+    <input type="text" id="player-name" placeholder="Your Name" required />
+    <button id="submit-score-btn">Submit</button>
+  </div>
+
+  <!-- Leaderboard -->
+  <div id="leaderboard" style="display: none;">
+    <h2>Leaderboard</h2>
+    <ul id="leaderboard-list"></ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
+

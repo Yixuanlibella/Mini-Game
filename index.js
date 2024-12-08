@@ -1,40 +1,53 @@
-//DB - 0 - install and load lowdb module
 import express from "express";
+import cors from "cors"; // Middleware for handling CORS
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 
 const app = express();
 
-//DB - 1 - connect to the DB
-const defaultData = { gameScores: [] };
+// Initialize Lowdb with a JSON file
 const adapter = new JSONFile("db.json");
-const db = new Low(adapter, defaultData);
+const db = new Low(adapter);
 
-//to parse JSON
+// Middleware to parse JSON and handle CORS
 app.use(express.json());
+app.use(cors());
 
+// Initialize the database
+(async () => {
+  await db.read();
+  db.data ||= { leaderboard: [] }; // Initialize the leaderboard if it doesn't exist
+  await db.write();
+})();
+
+// Endpoint to get the leaderboard
+app.get("/leaderboard", async (req, res) => {
+  await db.read(); // Read data from the database
+  res.json({ leaderboard: db.data.leaderboard });
+});
+
+// Endpoint to submit a score
 app.post("/submit-score", async (req, res) => {
-  const { score } = req.body;
+  const { playerName, score } = req.body;
 
-  // 将分数记录添加到数据库
-  db.data.gameScores.push({
-    score,
-    timeStamp: new Date().toISOString(), // 自动记录时间戳
-  });
-  await db.write(); // 写入数据库
+  // Validate input data
+  if (!playerName || typeof score !== "number") {
+    return res.status(400).json({ error: "Invalid data. Player name and score are required." });
+  }
+
+  // Add the score to the leaderboard
+  db.data.leaderboard.push({ playerName, score });
+  db.data.leaderboard.sort((a, b) => b.score - a.score); // Sort leaderboard by descending scores
+  await db.write(); // Save changes to the database
 
   res.json({ message: "Score submitted successfully" });
 });
 
-// 路由 - 获取所有分数记录
-app.get("/get-scores", async (req, res) => {
-  await db.read(); // 读取数据库内容
-  res.json({ scores: db.data.gameScores });
-});
+// Serve static files for the client (e.g., index.html, game.js, style.css)
+app.use(express.static("public"));
 
-app.use("/", express.static("public"));
-let port = process.env.PORT || 3000;
+// Start the server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log("listening at localhost:3000");
+  console.log(`Server running at http://localhost:5501`);
 });
-

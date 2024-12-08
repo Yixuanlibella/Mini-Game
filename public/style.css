@@ -12,55 +12,77 @@ h1 {
   color: #333;
 }
 
+#controls {
+  margin-top: 20px;
+}
+
+/* Container for the entire game board */
 #game-board {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px; /* Space between groups */
   margin: 20px auto;
   padding: 10px;
   border: 1px solid #ddd;
   background-color: #fff;
-  max-width: 900px;
+  max-width: 1200px; /* Ensure it fits within most screens */
 }
 
-.segment {
+/* Each group of tiles */
+.tile-group {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-right: 10px; /* Space between segments */
-}
-
-.tile {
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  text-align: center;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px; /* Space between tiles within a group */
+  border: 2px solid #ddd;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+/* Individual tile */
+.tile {
   width: 60px;
   height: 80px;
-  box-sizing: border-box;
-  margin-right: 5px;
+  text-align: center;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .tile:hover {
   background-color: #eaeaea;
 }
 
-.divider {
-  width: 5px;
-  height: 80px;
-  background-color: #444;
+/* Separator between groups */
+.group-separator {
+  width: 10px; /* Visual gap */
+  height: 1px; /* Placeholder for alignment */
+  background-color: transparent; /* No visual effect */
 }
 
-#play-btn {
+
+#submit-score-form,
+#leaderboard {
   margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+}
+
+#leaderboard-list {
+  list-style: none;
+  padding: 0;
+}
+
+#leaderboard-list li {
+  margin: 5px 0;
 }
 
 #timer {
@@ -72,10 +94,16 @@ h1 {
 
 #score-message {
   margin-top: 20px;
-  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f0f8ff;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
   color: #333;
 }
+
 
 /* Modal styling */
 .modal {
@@ -126,7 +154,27 @@ h1 {
 .modal-content button:hover {
   background-color: #0056b3;
 }
+/* Instructions Section */
+#instructions-section {
+  background-color: #f5f5f5;
+  padding: 15px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-width: 900px;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
+#instructions-section h2 {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
 
-
-  
+#instructions-section ul {
+  list-style: disc;
+  padding-left: 20px;
+}

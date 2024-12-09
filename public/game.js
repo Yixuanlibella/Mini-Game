@@ -279,7 +279,7 @@ function endGame() {
 document.getElementById("play-btn").addEventListener("click", () => {
   console.log("Start Game clicked"); // Debug log
   playerTiles = getRandomTiles(14); // Generate 14 random tiles
-  timeLeft = 3; // Reset timer to 180 seconds
+  timeLeft = 180; // Reset timer to 180 seconds
   gameActive = true; // Activate the game
 
   renderBoard(); // Render the game board

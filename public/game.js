@@ -6,66 +6,64 @@ let gameActive = false;
 // Generate all Mahjong tiles
 function generateAllTiles() {
   return [
-    // Character tiles (1万 - 9万)
-    { name: "1万", points: 1, type: "character", translation: "1 character" },
-    { name: "2万", points: 2, type: "character", translation: "2 characters" },
-    { name: "3万", points: 3, type: "character", translation: "3 characters" },
-    { name: "4万", points: 4, type: "character", translation: "4 characters" },
-    { name: "5万", points: 5, type: "character", translation: "5 characters" },
-    { name: "6万", points: 6, type: "character", translation: "6 characters" },
-    { name: "7万", points: 7, type: "character", translation: "7 characters" },
-    { name: "8万", points: 8, type: "character", translation: "8 characters" },
-    { name: "9万", points: 9, type: "character", translation: "9 characters" },
-
-    // Dot tiles (1筒 - 9筒)
-    { name: "1筒", points: 1, type: "dot", translation: "1 dot" },
-    { name: "2筒", points: 2, type: "dot", translation: "2 dots" },
-    { name: "3筒", points: 3, type: "dot", translation: "3 dots" },
-    { name: "4筒", points: 4, type: "dot", translation: "4 dots" },
-    { name: "5筒", points: 5, type: "dot", translation: "5 dots" },
-    { name: "6筒", points: 6, type: "dot", translation: "6 dots" },
-    { name: "7筒", points: 7, type: "dot", translation: "7 dots" },
-    { name: "8筒", points: 8, type: "dot", translation: "8 dots" },
-    { name: "9筒", points: 9, type: "dot", translation: "9 dots" },
-
-    // Bamboo tiles (1条 - 9条)
-    { name: "1条", points: 1, type: "bamboo", translation: "1 bamboo" },
-    { name: "2条", points: 2, type: "bamboo", translation: "2 bamboos" },
-    { name: "3条", points: 3, type: "bamboo", translation: "3 bamboos" },
-    { name: "4条", points: 4, type: "bamboo", translation: "4 bamboos" },
-    { name: "5条", points: 5, type: "bamboo", translation: "5 bamboos" },
-    { name: "6条", points: 6, type: "bamboo", translation: "6 bamboos" },
-    { name: "7条", points: 7, type: "bamboo", translation: "7 bamboos" },
-    { name: "8条", points: 8, type: "bamboo", translation: "8 bamboos" },
-    { name: "9条", points: 9, type: "bamboo", translation: "9 bamboos" },
+    { name: "1万", points: 1, type: "character", translation: "1 character", image: "mj/1-character.png" },
+    { name: "2万", points: 2, type: "character", translation: "2 characters", image: "mj/2-character.png" },
+    { name: "3万", points: 3, type: "character", translation: "3 characters", image: "mj/3-character.png" },
+    { name: "4万", points: 4, type: "character", translation: "4 characters", image: "mj/4-character.png" },
+    { name: "5万", points: 5, type: "character", translation: "5 characters", image: "mj/5-character.png" },
+    { name: "6万", points: 6, type: "character", translation: "6 characters", image: "mj/6-character.png" },
+    { name: "7万", points: 7, type: "character", translation: "7 characters", image: "mj/7-character.png" },
+    { name: "8万", points: 8, type: "character", translation: "8 characters", image: "mj/8-character.png" },
+    { name: "9万", points: 9, type: "character", translation: "9 characters", image: "mj/9-character.png" },
+    { name: "1筒", points: 1, type: "dot", translation: "1 dot", image: "mj/1-dot.png" },
+    { name: "2筒", points: 2, type: "dot", translation: "2 dots", image: "mj/2-dot.png" },
+    { name: "3筒", points: 3, type: "dot", translation: "3 dots", image: "mj/3-dot.png" },
+    { name: "4筒", points: 4, type: "dot", translation: "4 dots", image: "mj/4-dot.png" },
+    { name: "5筒", points: 5, type: "dot", translation: "5 dots", image: "mj/5-dot.png" },
+    { name: "6筒", points: 6, type: "dot", translation: "6 dots", image: "mj/6-dot.png" },
+    { name: "7筒", points: 7, type: "dot", translation: "7 dots", image: "mj/7-dot.png" },
+    { name: "8筒", points: 8, type: "dot", translation: "8 dots", image: "mj/8-dot.png" },
+    { name: "9筒", points: 9, type: "dot", translation: "9 dots", image: "mj/9-dot.png" },
+    { name: "1条", points: 1, type: "bamboo", translation: "1 bamboo", image: "mj/1-bamboo.png" },
+    { name: "2条", points: 2, type: "bamboo", translation: "2 bamboos", image: "mj/2-bamboo.png" },
+    { name: "3条", points: 3, type: "bamboo", translation: "3 bamboos", image: "mj/3-bamboo.png" },
+    { name: "4条", points: 4, type: "bamboo", translation: "4 bamboos", image: "mj/4-bamboo.png" },
+    { name: "5条", points: 5, type: "bamboo", translation: "5 bamboos", image: "mj/5-bamboo.png" },
+    { name: "6条", points: 6, type: "bamboo", translation: "6 bamboos", image: "mj/6-bamboo.png" },
+    { name: "7条", points: 7, type: "bamboo", translation: "7 bamboos", image: "mj/7-bamboo.png" },
+    { name: "8条", points: 8, type: "bamboo", translation: "8 bamboos", image: "mj/8-bamboo.png" },
+    { name: "9条", points: 9, type: "bamboo", translation: "9 bamboos", image: "mj/9-bamboo.png" },
   ];
 }
 
 // Generate random tiles for the player
 function getRandomTiles(count) {
-  const tiles = generateAllTiles();
-  const selectedTiles = [];
-  for (let i = 0; i < count; i++) {
-    selectedTiles.push(tiles[Math.floor(Math.random() * tiles.length)]);
+  const tiles = generateAllTiles(); // Retrieve the full set of tiles
+  for (let i = tiles.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
   }
-  return selectedTiles;
+  return tiles.slice(0, count);
+}
+
+// Update the score message dynamically
+function updateScoreMessage(result) {
+  const scoreMessage = document.getElementById("score-message");
+  scoreMessage.textContent = `Score: ${result.totalScore} (${result.shunziCount} Shunzi, ${result.keziCount} Kezi, ${result.duiziCount} Duizi).`;
+  if (result.isHu) {
+    scoreMessage.textContent += " Congratulations, you achieved Hu!";
+  }
+  scoreMessage.style.display = "block";
 }
 
 // Render the game board
 function renderBoard() {
   const gameBoard = document.getElementById("game-board");
+  const scoreCounter = document.getElementById("score-counter");
   gameBoard.innerHTML = ""; // Clear the game board
 
-  const groups = getGroups(playerTiles); // Divide tiles into groups
+  const groups = getGroups(playerTiles);
 
-  // Calculate the current score and patterns (Shunzi, Kezi, Duizi)
-  const result = calculateScore(groups);
-
-  // Update the live message
-  const scoreMessageElement = document.getElementById("score-message");
-  scoreMessageElement.textContent = `Score: ${result.totalScore} (${result.shunziCount} Shunzi, ${result.keziCount} Kezi, ${result.duiziCount} Duizi).`;
-
-  // Render each group of tiles
   groups.forEach((group) => {
     const groupDiv = document.createElement("div");
     groupDiv.classList.add("tile-group");
@@ -73,14 +71,19 @@ function renderBoard() {
     group.forEach((tile) => {
       const tileDiv = document.createElement("div");
       tileDiv.classList.add("tile");
-      tileDiv.innerHTML = `<strong>${tile.name}</strong><br>${tile.translation}`;
 
-      // Add click event to replace the tile
+      // Add image and translation
+      tileDiv.innerHTML = `
+        <img src="${tile.image}" alt="${tile.translation}">
+        <span>${tile.translation}</span>
+      `;
+
+      // Add click event
       tileDiv.addEventListener("click", () => {
         if (gameActive) {
           const tileIndex = playerTiles.indexOf(tile);
-          playerTiles[tileIndex] = getRandomTiles(1)[0]; // Replace the clicked tile
-          renderBoard(); // Re-render the board with updated tiles
+          playerTiles[tileIndex] = getRandomTiles(1)[0];
+          renderBoard(); // Re-render the board
         }
       });
 
@@ -90,9 +93,11 @@ function renderBoard() {
     gameBoard.appendChild(groupDiv);
   });
 
-  console.log("Game board rendered. Current score:", result); // Debug log
+  // Calculate score
+  const result = calculateScore(groups);
+  scoreCounter.textContent = `Score: ${result.totalScore}`;
+  updateScoreMessage(result);
 }
-
 
 // Timer logic
 function startTimer() {
@@ -100,15 +105,12 @@ function startTimer() {
   const interval = setInterval(() => {
     if (!gameActive || timeLeft <= 0) {
       clearInterval(interval);
-      if (timeLeft <= 0) {
-        endGame(); // Call endGame when time runs out
-      }
+      if (timeLeft <= 0) endGame();
       return;
     }
-
     timeLeft--;
     timerElement.textContent = `Time Left: ${timeLeft}`;
-  }, 1000); // Update every second
+  }, 1000);
 }
 function calculateScore(groups) {
   let totalScore = 0;
@@ -180,22 +182,22 @@ function getGroups(tiles) {
   return groups;
 }
 
-function submitScore(score) {
-  fetch('/submit-score', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ score }), // sending score
-  })
-      .then(response => response.json())
-      .then(data => {
-          console.log('Score submitted successfully:', data);
-      })
-      .catch(error => {
-          console.error('Error submitting score:', error);
-      });
+async function submitScore(playerName, score) {
+  try {
+    const response = await axios.post("http://localhost:3000/submit-score", {
+      playerName, // Ensure playerName is included
+      score,
+    });
+
+    if (response.data.message) {
+      alert("Score submitted successfully!");
+    }
+  } catch (error) {
+    console.error("Error submitting score:", error);
+    alert("Failed to submit score. Please try again.");
+  }
 }
+
 
 // Fetch leaderboard data
 function fetchLeaderboard() {
@@ -252,26 +254,20 @@ document.getElementById("leaderboard-btn").addEventListener("click", async () =>
 });
 
 // End the game and calculate the score
-function endGame() {
-  const groups = getGroups(playerTiles); // Divide tiles into groups
-  const result = calculateScore(groups); // Calculate the score
-
-  // Create the message
-  let message = `Score: ${result.totalScore} (${result.shunziCount} Shunzi, ${result.keziCount} Kezi, ${result.duiziCount} Duizi).`;
+function updateScoreMessage(result) {
+  const scoreMessage = document.getElementById("score-message");
+  scoreMessage.textContent = `Score: ${result.totalScore} (${result.shunziCount} Shunzi, ${result.keziCount} Kezi, ${result.duiziCount} Duizi).`;
   if (result.isHu) {
-    message += " Congratulations, you have reached Hu! (Winning Pattern)";
+      scoreMessage.textContent += " Congratulations, you achieved Hu!";
   }
+  scoreMessage.style.display = "block";
+}
 
-  // Display the message in the score area
-  const scoreMessageElement = document.getElementById("score-message");
-  scoreMessageElement.textContent = message;
-  scoreMessageElement.style.display = "block"; // Ensure it is visible
-
-  // Show a pop-up with the final score
-  alert(message);
-
-  // End the game
-  gameActive = false;
+// Example integration at the end of the game:
+function endGame() {
+  const groups = getGroups(playerTiles); // Divide player's tiles into groups
+  const result = calculateScore(groups); // Calculate score
+  updateScoreMessage(result); // Update score message
 }
 
 
@@ -282,7 +278,7 @@ document.getElementById("play-btn").addEventListener("click", () => {
   timeLeft = 180; // Reset timer to 180 seconds
   gameActive = true; // Activate the game
 
-  renderBoard(); // Render the game board
+  renderBoard(); //  the game board
   startTimer(); // Start the timer
   console.log("Game initialized"); // Debug log
 });

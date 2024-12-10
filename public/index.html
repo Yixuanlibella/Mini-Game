@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Instructions Section -->
   <div id="instructions-section">
     <h2>Game Instructions</h2>
     <p><strong>General Rules:</strong></p>
@@ -24,6 +25,7 @@
       </li>
       <li>You can click on any tile to replace it with a random tile from the pool.</li>
       <li>The game ends when the timer reaches 0.</li>
+      <li><a href="https://atom-expensive-starfish.glitch.me/">Want more Mahjong? Heading to our newest Mahjong + Autochess game.</a></li>
     </ul>
   </div>
   
@@ -34,9 +36,10 @@
       <button id="play-btn">Start Game</button>
       <button id="leaderboard-btn">Leaderboard</button>
     </div>
-    <div id="game-board"></div>
     <div id="timer">Time Left: 180</div>
-    <div id="score-message"></div>
+    <div id="score-counter">Score: 0</div> <!-- Score Counter -->
+    <div id="score-message" style="display: none;">Game messages will appear here.</div> <!-- Score Message -->
+    <div id="game-board"></div>
   </div>
 
   <!-- Score Submission Form -->
@@ -51,9 +54,12 @@
     <h2>Leaderboard</h2>
     <ul id="leaderboard-list"></ul>
   </div>
+  
 
+  <!-- External Libraries and Script -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
+
 

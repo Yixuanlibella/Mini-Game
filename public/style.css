@@ -1,75 +1,122 @@
+/* General body styling */
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; /* Font family */
   text-align: center;
-  background-color: #f5f5f5;
+  background-color: #e6bf98;
   margin: 0;
   padding: 0;
+  background-size: cover; /* This will stretch the image to cover the entire body */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center center; /* Centers the image */
 }
 
 h1 {
   margin-top: 20px;
   font-size: 24px;
-  color: #333;
+  color: #b53d2a; /* Font color */
+}
+
+h2 {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #135d50; /* Font color */
 }
 
 #controls {
   margin-top: 20px;
 }
+#play-btn {
+  background-color: #5182bd;
+  color:#135d50;
+}
 
+#leaderboard-btn {
+  background-color: #5182bd;
+  color:#135d50;
+}
+
+#submit-score-btn{
+ background-color:#5182bd;
+ color:#135d50;
+}
 /* Container for the entire game board */
+#game-container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+#controls {
+  margin: 20px 0;
+}
+
 #game-board {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap; /* Allow wrapping to the next line */
   gap: 10px; /* Space between groups */
-  margin: 20px auto;
   padding: 10px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  max-width: 1200px; /* Ensure it fits within most screens */
+  background-color: #5182bd; /* Tile background color */
+  border: 2px solid #1d3664; /* Border color */
 }
 
-/* Each group of tiles */
+.tile {
+  flex: 1 1 100px; /* Allow tiles to resize with a minimum width of 100px */
+  max-width: 120px; /* Prevent tiles from getting too large */
+  height: 140px; /* Adjust height to match new proportions */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #e6bf98; /* Tile background color */
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tile shadow color */
+}
+
+.tile img {
+  max-width: 100%;
+  max-height: 70%;
+  display: block;
+}
+
+.tile span {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #5182bd; /* Tile text color */
+}
+
 .tile-group {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px; /* Space between tiles within a group */
-  border: 2px solid #ddd;
-  padding: 5px;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  gap: 5px; /* Space between tiles in the same group */
+  padding-right: 10px;
+  border-right: 2px solid #1d3664; /* Border between tile groups */
 }
 
-/* Individual tile */
-.tile {
-  width: 60px;
-  height: 80px;
-  text-align: center;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.tile-group:last-child {
+  border-right: none; /* Remove border after the last group */
 }
 
-.tile:hover {
-  background-color: #eaeaea;
+#score-counter {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #135d50; /* Score color */
 }
 
-/* Separator between groups */
+#score-message {
+  font-size: 18px;
+  color: #135d50; /* Score message color */
+  margin-bottom: 15px;
+  display: block;
+  background-color: #f0f8ff; /* Score message background color */
+  padding: 10px;
+}
+
 .group-separator {
   width: 10px; /* Visual gap */
   height: 1px; /* Placeholder for alignment */
-  background-color: transparent; /* No visual effect */
+  background-color: transparent; /* No color */
 }
-
 
 #submit-score-form,
 #leaderboard {
@@ -89,21 +136,19 @@ h1 {
   margin-top: 20px;
   font-size: 20px;
   font-weight: bold;
-  color: #444;
+  color: #5182bd; /* Timer color */
 }
 
 #score-message {
   margin-top: 20px;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #f0f8ff;
+  background-color: #b53d2a; /* Background color */
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  color: #333;
+  color: #0056b3; /* Font color */
 }
-
 
 /* Modal styling */
 .modal {
@@ -115,19 +160,17 @@ h1 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #e6bf98; /* Modal content background */
   margin: 10% auto;
   padding: 20px;
-  border: 1px solid #ddd;
   width: 60%;
   text-align: left;
-  color: #333;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #b53d2a; /* Modal text color */
+  font-family: Arial, sans-serif; /* Font family */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow color */
 }
 
 .modal-content h2 {
@@ -145,33 +188,33 @@ h1 {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #135d50; /* Modal button background color */
+  color: #fff; /* Button text color */
   border: none;
   border-radius: 4px;
 }
 
 .modal-content button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Modal button hover color */
 }
+
 /* Instructions Section */
 #instructions-section {
-  background-color: #f5f5f5;
+  background-color: #e6bf98; /* Instructions section background */
   padding: 15px;
   margin: 20px auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
   max-width: 900px;
   text-align: left;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-family: Arial, sans-serif; /* Font family */
+  font-size: 18px;
+  color:#135d50;
   line-height: 1.6;
 }
 
 #instructions-section h2 {
   text-align: center;
   font-size: 18px;
-  color: #333;
+  color: #b53d2a; /* Instructions title color */
 }
 
 #instructions-section ul {

@@ -17,12 +17,17 @@ app.post("/submit-score", async (req, res) => {
   const { score } = req.body;
 
   // 将分数记录添加到数据库
+  if (!db.data.gameScores) {
+    db.data.gameScores = []; // Initialize the gameScores array if it doesn't exist
+  }
+  
   db.data.gameScores.push({
     score,
-    timeStamp: new Date().toISOString(), // 自动记录时间戳
+    timeStamp: new Date().toISOString(), // Automatically record timestamp
   });
-  await db.write(); // 写入数据库
-
+  
+  await db.write(); // Write to the database
+  
   res.json({ message: "Score submitted successfully" });
 });
 
@@ -37,5 +42,6 @@ let port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log("listening at localhost:3000");
 });
+
 
 
